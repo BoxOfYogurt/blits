@@ -1,9 +1,9 @@
+import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AppRoutes } from './util';
 import { StyledNavigationItem } from './AppNavigationItem';
 import { StyledButton } from './AppNavigationButton';
-import { AppIcon } from '../AppIcon/AppIcon';
-import { useTheme } from '@emotion/react';
+import { AppIcon } from '../../AppDesignComponents/AppIcon/AppIcon';
 
 type AppNavigationProps = {
   className?: string;
@@ -25,26 +25,32 @@ export const NavComponent = ({
     <nav className={className}>
       <StyledList>
         <StyledNavigationItem
-          active={activeRoute === 'home'}
-          routeName='home'
+          active={activeRoute === '/'}
+          routeName='/'
           iconName='home'
           onClick={onRouteChange}
         />
         <StyledNavigationItem
-          active={activeRoute === 'calendar'}
-          routeName='calendar'
+          active={activeRoute === '/desktop'}
+          routeName='/desktop'
+          iconName='home'
+          onClick={onRouteChange}
+        />
+        <StyledNavigationItem
+          active={activeRoute === '/calendar'}
+          routeName='/calendar'
           iconName='book-alt'
           onClick={onRouteChange}
         />
         <StyledNavigationItem
-          active={activeRoute === 'telemetry'}
-          routeName='telemetry'
+          active={activeRoute === '/telemetry'}
+          routeName='/telemetry'
           iconName='chart-histogram'
           onClick={onRouteChange}
         />
         <StyledNavigationItem
-          active={activeRoute === 'settings'}
-          routeName='settings'
+          active={activeRoute === '/settings'}
+          routeName='/settings'
           iconName='menu-dots'
           onClick={onRouteChange}
         />

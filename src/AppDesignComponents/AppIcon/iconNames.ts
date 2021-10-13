@@ -18,9 +18,15 @@ export type IconNames =
   | 'book'
   | 'bookmark'
   | 'book-alt'
+  | 'caret-down'
+  | 'caret-left'
+  | 'caret-right'
+  | 'caret-up'
   | 'chart-histogram'
   | 'circle'
   | 'circle-small'
   | 'menu-dots'
   | 'menu-dots-vertical'
-  | 'home';
+  | 'home'
+  | 'plus'
+  | 'plus-small';

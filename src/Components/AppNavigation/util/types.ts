@@ -1,1 +1,6 @@
-export type AppRoutes = 'home' | 'calendar' | 'settings' | 'telemetry';
+export type AppRoutes =
+  | '/'
+  | '/desktop'
+  | '/calendar'
+  | '/settings'
+  | '/telemetry';

@@ -22,29 +22,31 @@ const ApplicationLayout = styled.div(
 );
 
 const applicationRoutes: AppRoutes[] = [
-  'calendar',
-  'home',
-  'settings',
-  'telemetry',
+  '/',
+  '/desktop',
+  '/calendar',
+  '/settings',
+  '/telemetry',
 ];
 
 export const Desktop = () => {
-  const [activeRoute, setActiveRoute] = React.useState<AppRoutes>('home');
+  const [activeRoute, setActiveRoute] = React.useState<AppRoutes>('/');
   const [navExtended, setNavExtended] = React.useState<boolean>(false);
 
   let history = useHistory();
   let location = useLocation();
 
   const handleRouteChange = (routeName: AppRoutes) => {
-    history.push(`/${routeName}`);
+    history.push(routeName);
   };
 
   const handleNavExtended = (isExtended: boolean) => setNavExtended(isExtended);
 
   React.useEffect(() => {
-    const currentMainRoute = location.pathname.split('/')[1] as AppRoutes;
-    if (applicationRoutes.includes(currentMainRoute))
-      setActiveRoute(currentMainRoute);
+    console.log(location.pathname);
+    const currentMainRoute = location.pathname.split('/')[1];
+    if (applicationRoutes.includes(`/${currentMainRoute}` as AppRoutes))
+      setActiveRoute(`/${currentMainRoute}` as AppRoutes);
     else {
       console.log('INVALIDROUTE');
     }

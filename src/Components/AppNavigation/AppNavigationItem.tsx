@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { AppIcon } from '../AppIcon/AppIcon';
-import { IconNames } from '../AppIcon/iconNames';
+import { AppIcon } from '../../AppDesignComponents/AppIcon/AppIcon';
+import { IconNames } from '../../AppDesignComponents/AppIcon/iconNames';
 import { AppRoutes } from './util';
 
 type AppNavigationItemType = {

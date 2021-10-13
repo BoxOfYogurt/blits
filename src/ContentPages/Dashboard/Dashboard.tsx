@@ -1,8 +1,10 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { ContainerMenu } from '../../AppDesignComponents/ContainerMenu/ContainerMenu';
+import { IconMenuLabel } from '../../AppDesignComponents/IconMenuLabel/IconMenuLabel';
 import { AppContentContainer } from '../../Components/AppContentContainer/AppContentContainer';
 import { Timeline } from '../../Components/TimeLine/TimeLine';
-import { StyledContainer } from '../../StyledComponents';
+import { StyledScrollContainer } from '../../StyledComponents';
 
 type DashboardProps = {
   active: boolean;
@@ -14,9 +16,18 @@ const DashboardComponent = ({ className }: DashboardProps) => {
   return (
     <AppContentContainer>
       <div className={className}>
-        <StyledContainer height='100%'>
+        <StyledScrollContainer>
+          <ContainerMenu fixed>
+            <IconMenuLabel
+              label='Add task'
+              icon='plus'
+              onClick={() => {
+                console.log('clicked');
+              }}
+            />
+          </ContainerMenu>
           <Timeline />
-        </StyledContainer>
+        </StyledScrollContainer>
       </div>
     </AppContentContainer>
   );

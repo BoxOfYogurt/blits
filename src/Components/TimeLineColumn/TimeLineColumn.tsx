@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import {
   TimeLineTaskComponent,
@@ -27,7 +28,11 @@ const TimeLineColumnComponent = ({
 };
 
 export const TimeLineColumn = styled(TimeLineColumnComponent)((props) => ({
+  boxSizing: 'border-box',
   position: 'relative',
   height: '100%',
   width: '100%',
+  '&:not(:first-of-type)': {
+    borderLeft: `1px solid ${props.theme.palette.blue.main}`,
+  },
 }));

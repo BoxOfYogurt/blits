@@ -28,7 +28,7 @@ export const TimeLineUtils = {
       task_enddate_in_milliseconds - task_startdate_in_milliseconds >
       milliseconds_in_day
     ) {
-      console.log('hello');
+      throw 'Not implemented';
     } else {
       height_in_percentage = `${
         ((task_enddate_in_milliseconds - task_startdate_in_milliseconds) /
@@ -40,7 +40,6 @@ export const TimeLineUtils = {
           milliseconds_in_day) *
         100
       }%`;
-      console.log(height_in_percentage, start_in_percentage);
     }
     return { start_in_percentage, height_in_percentage };
   },

@@ -21,6 +21,7 @@ export const AppIcon = styled(IconComponent)((props) => ({
   '& svg': {
     fill: props.iconColor ? props.iconColor : props.theme.palette.grey.light,
     height: iconSize(props.size),
+    width: 'min-content',
   },
 }));
 
