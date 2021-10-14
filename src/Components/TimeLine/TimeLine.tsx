@@ -1,36 +1,15 @@
 import styled from '@emotion/styled';
-import { render } from '@testing-library/react';
-import React, { useMemo, useRef, useState } from 'react';
-import { useTaskStore } from '../../AppStore';
+import React from 'react';
+import { useTimeLineMarkerPosition } from '../../Hooks';
 import { DateUtils } from '../../util/DateUtils';
 import { TimeLineUtils } from '../../util/TimeLineUtils';
 import { TimeLineColumn } from '../TimeLineColumn/TimeLineColumn';
 import { TimeLineMarker } from '../TimeLineMarker/TimeLineMarker';
 
-const useTimeLineMarkerPosition = () => {
-  const [markerPosition, setMarkerPosition] = useState<string>('');
-
-  React.useEffect(() => {
-    const today = new Date();
-    const value = TimeLineUtils.getPercentages(
-      today,
-      today
-    ).start_in_percentage;
-
-    if (markerPosition === '') {
-      setMarkerPosition(value);
-    } else {
-      const timer = setTimeout(() => setMarkerPosition(value), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [markerPosition]);
-
-  return markerPosition;
-};
-
 type TimelineProps = {
   className?: string;
 };
+
 const TimelineComponent = ({ className }: TimelineProps) => {
   const week = TimeLineUtils.getWeek();
   const markerPosition = useTimeLineMarkerPosition();
@@ -49,11 +28,9 @@ type TimeLineTableProps = {
 
 const TimeLineTable = React.memo(
   ({ week }: TimeLineTableProps) => {
-    console.log('tablerender');
     return (
       <>
-        {week.map((day, index) => {
-          console.log(day);
+        {week.map((day) => {
           return (
             <TimeLineColumn
               key={day.getDate().toString()}
@@ -79,5 +56,3 @@ export const Timeline = styled(TimelineComponent)((props) => ({
   backgroundColor: props.theme.palette.blue.light,
   borderRadius: props.theme.spacing('xsmall'),
 }));
-
-// TimelineTask
