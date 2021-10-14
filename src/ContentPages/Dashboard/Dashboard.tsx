@@ -14,49 +14,15 @@ type DashboardProps = {
 };
 
 const DashboardComponent = ({ className }: DashboardProps) => {
-  const theme = useTheme();
-  const { taskStore, taskStoreDispatch } = useTaskStore();
-
-  const handleAddTask = () => {
-    taskStoreDispatch({
-      action: TaskStoreActionEnum.ADD,
-      payload: {
-        title: 'testTitle',
-        date: [new Date(2021, 9, 15).getTime().toString()],
-        period: {
-          from: new Date(2021, 9, 15, 8, 0, 0, 0),
-          to: new Date(2021, 9, 15, 10, 10, 10),
-        },
-        periodTotalTime: 60000,
-        label: {
-          labelId: 2,
-          color: 'red',
-          text: 'testTask',
-          labelIconName: 'add',
-        },
-        includeInMetric: true,
-      },
-    });
-  };
-
   return (
     <AppContentContainer>
       <div className={className}>
         <StyledScrollContainer>
           <ContainerMenu fixed>
-            <IconMenuLabel
-              label='Add task'
-              icon='plus'
-              onClick={handleAddTask}
-            />
+            <IconMenuLabel label='Add task' icon='plus' onClick={() => {}} />
           </ContainerMenu>
           <Timeline />
         </StyledScrollContainer>
-        <div>
-          {taskStore.workTasks.map((task) => (
-            <p key={task.id}>{task.title}</p>
-          ))}
-        </div>
       </div>
     </AppContentContainer>
   );

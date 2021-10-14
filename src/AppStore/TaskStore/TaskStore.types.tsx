@@ -1,7 +1,7 @@
 export interface WorkTask {
   id?: number;
   title: string;
-  date: string[];
+  date: string;
   period: { from: Date; to: Date };
   periodTotalTime: number;
   label: {

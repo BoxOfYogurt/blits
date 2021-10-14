@@ -49,18 +49,17 @@ type TimeLineTableProps = {
 
 const TimeLineTable = React.memo(
   ({ week }: TimeLineTableProps) => {
-    const { taskStore } = useTaskStore();
+    console.log('tablerender');
     return (
       <>
         {week.map((day, index) => {
           console.log(day);
           return (
             <TimeLineColumn
-              key={index}
+              key={day.getDate().toString()}
+              date={day}
               dayString={DateUtils.formatDate(day)}
-              tasks={taskStore.workTasks.filter((task) =>
-                task.date.includes(day.getTime().toString())
-              )}
+              isToday={day.getDate() === new Date().getDate()}
             />
           );
         })}
@@ -72,7 +71,7 @@ const TimeLineTable = React.memo(
 
 export const Timeline = styled(TimelineComponent)((props) => ({
   position: 'relative',
-  height: '100vh',
+  height: '200vh',
   width: '100%',
   display: 'grid',
   gridTemplateColumns: 'repeat(7, 1fr)',

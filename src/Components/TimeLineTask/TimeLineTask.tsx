@@ -11,7 +11,7 @@ export type TimeLineTaskProps = {
 export const TimeLineTaskComponent = ({ task }: TimeLineTaskProps) => {
   const { start_in_percentage, height_in_percentage } =
     TimeLineUtils.getPercentages(task.period.from, task.period.to);
-
+  console.log('taskrender');
   return (
     <TimeLineTask
       position={start_in_percentage}
