@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { render } from '@testing-library/react';
 import React, { useMemo, useRef, useState } from 'react';
+import { useTaskStore } from '../../AppStore';
 import { DateUtils } from '../../util/DateUtils';
 import { TimeLineUtils } from '../../util/TimeLineUtils';
 import { TimeLineColumn } from '../TimeLineColumn/TimeLineColumn';
 import { TimeLineMarker } from '../TimeLineMarker/TimeLineMarker';
-import { tasks } from './mockData';
 
 const useTimeLineMarkerPosition = () => {
   const [markerPosition, setMarkerPosition] = useState<string>('');
@@ -16,10 +16,10 @@ const useTimeLineMarkerPosition = () => {
       today,
       today
     ).start_in_percentage;
+
     if (markerPosition === '') {
       setMarkerPosition(value);
     } else {
-      console.log(value);
       const timer = setTimeout(() => setMarkerPosition(value), 5000);
       return () => clearTimeout(timer);
     }
@@ -49,18 +49,21 @@ type TimeLineTableProps = {
 
 const TimeLineTable = React.memo(
   ({ week }: TimeLineTableProps) => {
-    const renders = useRef<number>(1);
+    const { taskStore } = useTaskStore();
     return (
       <>
-        {week.map((day, index) => (
-          <TimeLineColumn
-            key={index}
-            dayString={DateUtils.formatDate(day)}
-            tasks={tasks.filter(
-              (task) => task.date.getTime() === day.getTime()
-            )}
-          />
-        ))}
+        {week.map((day, index) => {
+          console.log(day);
+          return (
+            <TimeLineColumn
+              key={index}
+              dayString={DateUtils.formatDate(day)}
+              tasks={taskStore.workTasks.filter((task) =>
+                task.date.includes(day.getTime().toString())
+              )}
+            />
+          );
+        })}
       </>
     );
   },

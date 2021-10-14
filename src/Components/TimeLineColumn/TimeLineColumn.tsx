@@ -4,24 +4,20 @@ import {
   TimeLineTaskComponent,
   TimeLineTaskProps,
 } from '../TimeLineTask/TimeLineTask';
+// fix imports
+import { WorkTask } from '../../AppStore/TaskStore/TaskStore.types';
 
 type TimelineColumnProps = {
-  tasks: TimeLineTaskProps[];
+  tasks: WorkTask[];
   dayString: string;
   className?: string;
 };
 
-const TimeLineColumnComponent = ({
-  tasks,
-  className,
-  dayString,
-}: TimelineColumnProps) => {
-  console.log(tasks);
+const TimeLineColumnComponent = ({ tasks, className }: TimelineColumnProps) => {
   return (
     <div className={className}>
-      {/* <p>{dayString}</p> */}
       {tasks.map((task, index) => (
-        <TimeLineTaskComponent key={index} {...task} />
+        <TimeLineTaskComponent key={task.id} task={task} />
       ))}
     </div>
   );

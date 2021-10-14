@@ -1,21 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TimeLineUtils } from '../../util/TimeLineUtils';
+// fix import
+import { WorkTask } from '../../AppStore/TaskStore/TaskStore.types';
+
 export type TimeLineTaskProps = {
-  interval: {
-    startTime: Date;
-    endTime: Date;
-  };
-  date: Date;
-  labelColor?: string;
-  className?: string;
+  task: WorkTask;
 };
 
-export const TimeLineTaskComponent = ({ interval }: TimeLineTaskProps) => {
-  const { start_in_percentage, height_in_percentage } = React.useMemo(
-    () => TimeLineUtils.getPercentages(interval.startTime, interval.endTime),
-    [interval]
-  );
+export const TimeLineTaskComponent = ({ task }: TimeLineTaskProps) => {
+  const { start_in_percentage, height_in_percentage } =
+    TimeLineUtils.getPercentages(task.period.from, task.period.to);
 
   return (
     <TimeLineTask
@@ -37,7 +32,7 @@ export const TimeLineTask = styled('span')<TimeLineTaskSpanProps>((props) => ({
   top: props.position,
   backgroundColor: props.labelColor
     ? props.labelColor
-    : props.theme.palette.blue.light,
+    : props.theme.palette.green.light,
   borderRadius: props.theme.spacing('xsmall'),
   boxShadow: `inset 0 0 2px ${props.theme.palette.black.light}`,
   cursor: 'pointer',

@@ -1,5 +1,7 @@
 export const TimeLineUtils = {
-  getPercentages: (start: Date, end: Date) => {
+  getPercentages: (tstart: Date, tend: Date) => {
+    const start = new Date(tstart);
+    const end = new Date(tend);
     let height_in_percentage: string = '';
     let start_in_percentage: string = '';
 
@@ -43,55 +45,28 @@ export const TimeLineUtils = {
     }
     return { start_in_percentage, height_in_percentage };
   },
+  //BROKEN
   getWeek: () => {
     let todays_date = new Date();
     let week: Array<Date> = [];
-    let tempDate: Date = todays_date;
-    while (week.length !== 7) {
+    let tempDate: Date = new Date(
+      todays_date.getFullYear(),
+      todays_date.getMonth(),
+      todays_date.getDate()
+    );
+    while (week.length < 7) {
       if (tempDate.getDay() === 6) {
-        tempDate = new Date(
-          tempDate.getFullYear(),
-          tempDate.getMonth(),
-          tempDate.getDate() - 5,
-          0,
-          0,
-          0,
-          0
-        );
         week.push(tempDate);
+        tempDate.setDate(tempDate.getDate() - 5);
       } else if (tempDate.getDay() === 0) {
-        tempDate = new Date(
-          tempDate.getFullYear(),
-          tempDate.getMonth(),
-          tempDate.getDate(),
-          0,
-          0,
-          0,
-          0
-        );
         week.push(tempDate);
-        tempDate = new Date(
-          tempDate.getFullYear(),
-          tempDate.getMonth(),
-          tempDate.getDate() - 1,
-          0,
-          0,
-          0,
-          0
-        );
+        tempDate.setDate(tempDate.getDate() - 1);
       } else {
-        tempDate = new Date(
-          tempDate.getFullYear(),
-          tempDate.getMonth(),
-          tempDate.getDate() + 1,
-          0,
-          0,
-          0,
-          0
-        );
         week.push(tempDate);
+        tempDate.setDate(tempDate.getDate() + 1);
       }
     }
+    console.log(week);
     return week.sort((curr, prev) => +curr - +prev);
   },
 };
