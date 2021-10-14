@@ -47,26 +47,18 @@ export const TimeLineUtils = {
   },
   //BROKEN
   getWeek: () => {
-    let todays_date = new Date();
-    let week: Array<Date> = [];
-    let tempDate: Date = new Date(
-      todays_date.getFullYear(),
-      todays_date.getMonth(),
-      todays_date.getDate()
-    );
-    while (week.length < 7) {
-      if (tempDate.getDay() === 6) {
-        week.push(tempDate);
-        tempDate.setDate(tempDate.getDate() - 5);
-      } else if (tempDate.getDay() === 0) {
-        week.push(tempDate);
-        tempDate.setDate(tempDate.getDate() - 1);
+    const week_array: Array<Date> = [];
+    let tempDate = new Date(new Date().setHours(0, 0, 0, 0));
+
+    while (week_array.length < 7) {
+      if (tempDate.getDay() === 0) {
+        week_array.push(tempDate);
+        tempDate = new Date(tempDate.setDate(tempDate.getDate() - 6));
       } else {
-        week.push(tempDate);
-        tempDate.setDate(tempDate.getDate() + 1);
+        week_array.push(tempDate);
+        tempDate = new Date(tempDate.setDate(tempDate.getDate() + 1));
       }
     }
-    console.log(week);
-    return week.sort((curr, prev) => +curr - +prev);
+    return week_array.sort((curr, prev) => +curr - +prev);
   },
 };
