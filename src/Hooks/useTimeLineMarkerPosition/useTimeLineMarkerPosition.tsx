@@ -14,7 +14,7 @@ export const useTimeLineMarkerPosition = () => {
     if (markerPosition === '') {
       setMarkerPosition(value);
     } else {
-      const timer = setTimeout(() => setMarkerPosition(value), 5000);
+      const timer = setTimeout(() => setMarkerPosition(value), 10000);
       return () => clearTimeout(timer);
     }
   }, [markerPosition]);

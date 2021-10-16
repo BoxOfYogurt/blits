@@ -16,7 +16,7 @@ const IconComponent = ({ name, className }: AppIconProps) => {
   return <span className={className}>{Icons[name]}</span>;
 };
 
-export const AppIcon = styled(IconComponent)((props) => ({
+export const AppIcon = styled(IconComponent)<AppIconProps>((props) => ({
   display: 'flex',
   '& svg': {
     fill: props.iconColor ? props.iconColor : props.theme.palette.grey.light,

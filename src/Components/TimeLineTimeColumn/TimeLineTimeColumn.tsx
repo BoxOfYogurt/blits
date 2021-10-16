@@ -3,7 +3,6 @@ import { DateUtils } from '../../util/DateUtils';
 
 export const TimeLineTimeColumn = () => {
   const today = new Date();
-
   const hours = new Array(24)
     .fill(null)
     .map((_, index) => new Date(today.setHours(index, 0, 0, 0)).getTime());
@@ -11,7 +10,9 @@ export const TimeLineTimeColumn = () => {
   return (
     <StyledColumnGrid>
       {hours.map((h) => (
-        <p key={h}>{DateUtils.formatHour(h)}</p>
+        <p key={h}>
+          {DateUtils.formatHour(h, { hour: '2-digit', minute: '2-digit' })}
+        </p>
       ))}
     </StyledColumnGrid>
   );

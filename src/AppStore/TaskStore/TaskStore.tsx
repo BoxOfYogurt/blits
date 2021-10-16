@@ -11,6 +11,7 @@ const getLocalStorageTaskStore = (): TaskStore => {
   return {
     workTasks: [],
     metrics: [],
+    labels: [],
   };
 };
 
@@ -23,7 +24,6 @@ export const TaskStoreProvider = ({
   const [taskStore, taskStoreDispatch] = useReducer<
     React.Reducer<TaskStore, TaskStoreAction>
   >(TaskStoreReducer, getLocalStorageTaskStore());
-
   return (
     <TaskStoreContext.Provider value={{ taskStore, taskStoreDispatch }}>
       {children}

@@ -9,6 +9,7 @@
 
 p {
   color: white;
+  font-family: 'Roboto', sans-serif;
 }
 ::-webkit-scrollbar {
   width: 1em;
@@ -23,7 +24,6 @@ p {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border: 0.3em solid transparent;
+  border-left: 0.2em solid transparent;
   border-radius: 0.5rem;
 }
-
-/* Handle on hover */

@@ -6,8 +6,12 @@
 
 export interface SettingStore {
   coreTime?: {
-    from: string; // as HourTime;
-    to: string; // as HourTime
+    from: number; // as HourTime;
+    to: number; // as HourTime
     highLight: boolean;
   };
+}
+
+export interface SettingStoreAction {
+  payload: SettingStore;
 }

@@ -1,20 +1,17 @@
 export interface WorkTask {
-  id?: number;
+  id: number | null;
   title: string;
   description?: string;
   date: string;
   period: { from: Date; to: Date };
-  periodTotalTime?: number;
-  label?: {
-    labelId: number;
-    // LabelColorType
-    color: string;
-    text: string;
-    // LabelIconName
-    labelIconName: string;
-  };
+  labelId: number;
   includeInMetric: boolean;
   notification?: boolean;
+}
+
+export interface ExtendedWorkTask extends Omit<WorkTask, 'id'> {
+  id: number;
+  periodTotalTime: number;
 }
 
 export interface WorkMetric {
@@ -22,9 +19,19 @@ export interface WorkMetric {
   totalTime: number; // time in ms
 }
 
+export interface WorkLabel {
+  labelId: number;
+  color: string;
+  labelName: string;
+  labelIcon: string;
+  includeInMetric: boolean;
+  tasks: number[];
+}
+
 export interface TaskStore {
-  workTasks: WorkTask[];
+  workTasks: ExtendedWorkTask[];
   metrics: WorkMetric[];
+  labels: WorkLabel[];
 }
 
 export enum TaskStoreActionEnum {

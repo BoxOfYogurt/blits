@@ -1,3 +1,18 @@
+type InRangeFunctionType = (
+  arg: number,
+  opt?: {
+    from?: number;
+    to?: number;
+  }
+) => boolean;
+
+const InRangeFunction: InRangeFunctionType = (arg, opt) => {
+  if (opt?.from && opt.to) {
+    return arg >= opt?.from && arg < opt?.to;
+  }
+  return false;
+};
+
 export const TimeLineUtils = {
   getPercentages: (from: Date, to: Date) => {
     const start = new Date(from);
@@ -15,7 +30,7 @@ export const TimeLineUtils = {
 
     // some tasks may span over a day
     if (taskEndDayTimeMS - taskStartDayTimeMS > milliseconds_in_day) {
-      throw 'Not implemented';
+      throw Error('Not Implemented');
     } else {
       height_in_percentage = `${
         ((taskEndTimeMs - taskStartTimeMS) / milliseconds_in_day) * 100
@@ -26,9 +41,9 @@ export const TimeLineUtils = {
     }
     return { start_in_percentage, height_in_percentage };
   },
-  getWeek: () => {
+  getWeek: (selectedDate: Date) => {
     const week_array: Array<Date> = [];
-    let tempDate = new Date(new Date().setHours(0, 0, 0, 0));
+    let tempDate = new Date(new Date(selectedDate).setHours(0, 0, 0, 0));
 
     while (week_array.length < 7) {
       if (tempDate.getDay() === 0) {
@@ -41,4 +56,5 @@ export const TimeLineUtils = {
     }
     return week_array.sort((curr, prev) => +curr - +prev);
   },
+  inRange: InRangeFunction,
 };

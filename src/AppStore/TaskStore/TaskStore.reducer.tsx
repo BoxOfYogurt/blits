@@ -1,4 +1,6 @@
+import { DateUtils } from '../../util/DateUtils';
 import {
+  ExtendedWorkTask,
   TaskStore,
   TaskStoreAction,
   TaskStoreActionEnum,
@@ -10,36 +12,47 @@ export const TaskStoreReducer: React.Reducer<TaskStore, TaskStoreAction> = (
   action
 ) => {
   let copyStore = { ...store };
+
+  const taskId = mapTaskId(action.payload.id, copyStore.workTasks);
+  const taskPeriodTotalTime = DateUtils.timeDiff(
+    action.payload.period.from,
+    action.payload.period.to
+  );
+
   switch (action.action) {
     case TaskStoreActionEnum.ADD:
       copyStore.workTasks = [
         ...copyStore.workTasks,
-        { ...action.payload, id: copyStore.workTasks.length + 1 },
+        { ...action.payload, id: taskId, periodTotalTime: taskPeriodTotalTime },
       ];
-      if (action.payload.includeInMetric && action.payload.periodTotalTime) {
-        if (action.payload.label) {
-          const index = copyStore.metrics.findIndex(
-            (x) => x.labelId === action.payload.label?.labelId
-          );
-          if (index !== -1) {
-            copyStore.metrics[index] = {
-              ...copyStore.metrics[index],
-              totalTime:
-                copyStore.metrics[index].totalTime +
-                action.payload.periodTotalTime,
-            };
-          } else {
-            copyStore.metrics = [
-              ...copyStore.metrics,
-              {
-                labelId: action.payload.label.labelId,
-                totalTime: action.payload.periodTotalTime,
-              },
-            ];
-          }
-        }
+      const metricIndex = copyStore.metrics.findIndex(
+        (metricStore) => metricStore.labelId === action.payload.labelId
+      );
+      const labelIndex = copyStore.labels.findIndex(
+        (labelStore) => labelStore.labelId === action.payload.labelId
+      );
+      /** should never fail */
+      if (metricIndex !== -1 && labelIndex !== -1) {
+        /** update metrics */
+        copyStore.metrics = [
+          ...copyStore.metrics,
+          {
+            ...copyStore.metrics[metricIndex],
+            totalTime:
+              copyStore.metrics[labelIndex].totalTime + taskPeriodTotalTime,
+          },
+        ];
+        /** Update labels */
+        copyStore.labels = [
+          ...copyStore.labels,
+          {
+            ...copyStore.labels[labelIndex],
+            tasks: [...copyStore.labels[labelIndex].tasks, taskId],
+          },
+        ];
       }
       setLocalStorageTaskStore(copyStore);
+      console.log(copyStore);
       return copyStore;
     case TaskStoreActionEnum.EDIT:
       setLocalStorageTaskStore(copyStore);
@@ -56,4 +69,14 @@ export const TaskStoreReducer: React.Reducer<TaskStore, TaskStoreAction> = (
 
 const setLocalStorageTaskStore = (store: TaskStore) => {
   localStorage.setItem('taskStore', JSON.stringify(store));
+};
+
+const mapTaskId = (id: number | null, store: ExtendedWorkTask[]): number => {
+  if (id) {
+    return id;
+  }
+  if (store.length) {
+    return store[store.length - 1].id + 1;
+  }
+  return 1;
 };

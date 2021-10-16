@@ -2,20 +2,29 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { TimeLineUtils } from '../../util/TimeLineUtils';
 // fix import
-import { WorkTask } from '../../AppStore/TaskStore/TaskStore.types';
+import { ExtendedWorkTask } from '../../AppStore/TaskStore/TaskStore.types';
+import { AppIcon } from '../../AppDesignComponents/AppIcon/AppIcon';
 
 export type TimeLineTaskProps = {
-  task: WorkTask;
+  task: ExtendedWorkTask;
 };
 
-export const TimeLineTaskComponent = ({ task }: TimeLineTaskProps) => {
+export const TimeLineTask = ({ task }: TimeLineTaskProps) => {
   const { start_in_percentage, height_in_percentage } =
     TimeLineUtils.getPercentages(task.period.from, task.period.to);
   console.log('taskrender');
+
+  const heightConstraint = task.periodTotalTime > 900000;
+
   return (
-    <TimeLineTask
-      position={start_in_percentage}
-      height={height_in_percentage}></TimeLineTask>
+    <TaskBox position={start_in_percentage} height={height_in_percentage}>
+      {heightConstraint && (
+        <TaskHeader>
+          <p>{task.title}</p>
+          <AppIcon name='plus-small' size='regular' />
+        </TaskHeader>
+      )}
+    </TaskBox>
   );
 };
 
@@ -25,8 +34,11 @@ type TimeLineTaskSpanProps = {
   position: string;
 };
 
-export const TimeLineTask = styled('span')<TimeLineTaskSpanProps>((props) => ({
+const TaskBox = styled('div')<TimeLineTaskSpanProps>((props) => ({
+  overflow: 'hidden',
   position: 'absolute',
+  boxSizing: 'border-box',
+  padding: props.theme.spacing('xsmall'),
   width: '100%',
   height: props.height,
   top: props.position,
@@ -38,5 +50,13 @@ export const TimeLineTask = styled('span')<TimeLineTaskSpanProps>((props) => ({
   cursor: 'pointer',
   '&:hover': {
     backgroundColor: props.theme.popper.punch[200],
+  },
+}));
+
+const TaskHeader = styled('span')((props) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr min-content',
+  '& p': {
+    textOverflow: 'ellipsis',
   },
 }));

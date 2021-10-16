@@ -1,32 +1,34 @@
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AppIcon } from '../../AppDesignComponents/AppIcon/AppIcon';
+import { useTimeLineMarkerPosition } from '../../Hooks';
 
-type TimeLineMarkerProps = {
-  className?: string;
-  position: string;
-};
-
-const TimeLineMarkerComponent = ({ className }: TimeLineMarkerProps) => {
+export const TimeLineMarker = () => {
   const theme = useTheme();
+  const markerPosition = useTimeLineMarkerPosition();
+
   return (
-    <span className={className}>
+    <Marker position={markerPosition}>
       <AppIcon
         size='large'
         name='caret-right'
         iconColor={theme.popper.punch[200]}
       />
-    </span>
+    </Marker>
   );
 };
 
-export const TimeLineMarker = styled(TimeLineMarkerComponent)((props) => ({
+type MarkerProps = {
+  position: string;
+};
+
+const Marker = styled('span')<MarkerProps>((props) => ({
   position: 'absolute',
   display: 'flex',
   alignItems: 'center',
   top: props.position,
-  left: props.theme.spacing('regular'),
-  width: `calc( 100% - ${props.theme.spacing('regular')})`,
+  // suggestion: change line to only reach to the end of current day
+  width: '100%',
   height: '3px',
   backgroundColor: props.theme.popper.punch[200],
   zIndex: 2,
