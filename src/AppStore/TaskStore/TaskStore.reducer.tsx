@@ -16,25 +16,27 @@ export const TaskStoreReducer: React.Reducer<TaskStore, TaskStoreAction> = (
         ...copyStore.workTasks,
         { ...action.payload, id: copyStore.workTasks.length + 1 },
       ];
-      if (action.payload.includeInMetric) {
-        const index = copyStore.metrics.findIndex(
-          (x) => x.labelId === action.payload.label.labelId
-        );
-        if (index !== -1) {
-          copyStore.metrics[index] = {
-            ...copyStore.metrics[index],
-            totalTime:
-              copyStore.metrics[index].totalTime +
-              action.payload.periodTotalTime,
-          };
-        } else {
-          copyStore.metrics = [
-            ...copyStore.metrics,
-            {
-              labelId: action.payload.label.labelId,
-              totalTime: action.payload.periodTotalTime,
-            },
-          ];
+      if (action.payload.includeInMetric && action.payload.periodTotalTime) {
+        if (action.payload.label) {
+          const index = copyStore.metrics.findIndex(
+            (x) => x.labelId === action.payload.label?.labelId
+          );
+          if (index !== -1) {
+            copyStore.metrics[index] = {
+              ...copyStore.metrics[index],
+              totalTime:
+                copyStore.metrics[index].totalTime +
+                action.payload.periodTotalTime,
+            };
+          } else {
+            copyStore.metrics = [
+              ...copyStore.metrics,
+              {
+                labelId: action.payload.label.labelId,
+                totalTime: action.payload.periodTotalTime,
+              },
+            ];
+          }
         }
       }
       setLocalStorageTaskStore(copyStore);

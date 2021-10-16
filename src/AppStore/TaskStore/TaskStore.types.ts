@@ -1,10 +1,11 @@
 export interface WorkTask {
   id?: number;
   title: string;
+  description?: string;
   date: string;
   period: { from: Date; to: Date };
-  periodTotalTime: number;
-  label: {
+  periodTotalTime?: number;
+  label?: {
     labelId: number;
     // LabelColorType
     color: string;

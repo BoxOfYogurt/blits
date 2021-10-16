@@ -5,6 +5,7 @@ import { DateUtils } from '../../util/DateUtils';
 import { TimeLineUtils } from '../../util/TimeLineUtils';
 import { TimeLineColumn } from '../TimeLineColumn/TimeLineColumn';
 import { TimeLineMarker } from '../TimeLineMarker/TimeLineMarker';
+import { TimeLineTimeColumn } from '../TimeLineTimeColumn/TimeLineTimeColumn';
 
 type TimelineProps = {
   className?: string;
@@ -30,6 +31,8 @@ const TimeLineTable = React.memo(
   ({ week }: TimeLineTableProps) => {
     return (
       <>
+        {/* insert a new column with time */}
+        <TimeLineTimeColumn />
         {week.map((day) => {
           return (
             <TimeLineColumn
@@ -51,7 +54,7 @@ export const Timeline = styled(TimelineComponent)((props) => ({
   height: '200vh',
   width: '100%',
   display: 'grid',
-  gridTemplateColumns: 'repeat(7, 1fr)',
+  gridTemplateColumns: `${props.theme.spacing('regular')} repeat(7, 1fr)`,
   gridTemplateRows: '1fr',
   backgroundColor: props.theme.palette.blue.light,
   borderRadius: props.theme.spacing('xsmall'),

@@ -5,6 +5,7 @@ export const StyledScrollContainer = styled.div((props) => ({
   backgroundColor: props.theme.palette.blue.dark,
   boxSizing: 'border-box',
   border: `10px solid ${props.theme.palette.blue.dark}`,
+  borderTop: 'none',
   borderRight: 'none',
   width: '100%',
   height: '70vh',
