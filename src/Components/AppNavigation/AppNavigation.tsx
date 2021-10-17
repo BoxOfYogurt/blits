@@ -37,6 +37,12 @@ export const NavComponent = ({
           onClick={onRouteChange}
         />
         <StyledNavigationItem
+          active={activeRoute === '/labels'}
+          routeName='/labels'
+          iconName='label'
+          onClick={onRouteChange}
+        />
+        <StyledNavigationItem
           active={activeRoute === '/calendar'}
           routeName='/calendar'
           iconName='book-alt'

@@ -24,6 +24,7 @@ const ApplicationLayout = styled.div(
 const applicationRoutes: AppRoutes[] = [
   '/',
   '/desktop',
+  '/labels',
   '/calendar',
   '/settings',
   '/telemetry',
@@ -51,6 +52,7 @@ export const Desktop = () => {
       console.log('INVALIDROUTE');
     }
   }, [location.pathname]);
+
   return (
     <ApplicationLayout>
       <AppNavigation

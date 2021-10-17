@@ -29,7 +29,7 @@ const Marker = styled('span')<MarkerProps>((props) => ({
   top: props.position,
   // suggestion: change line to only reach to the end of current day
   width: '100%',
-  height: '3px',
+  height: '1px',
   backgroundColor: props.theme.popper.punch[200],
   zIndex: 2,
   opacity: '70%',

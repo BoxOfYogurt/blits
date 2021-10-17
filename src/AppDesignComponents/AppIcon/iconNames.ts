@@ -25,6 +25,7 @@ export type IconNames =
   | 'chart-histogram'
   | 'circle'
   | 'circle-small'
+  | 'label'
   | 'menu-dots'
   | 'menu-dots-vertical'
   | 'home'
