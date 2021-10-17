@@ -22,6 +22,7 @@ export type AppTheme = {
   palette: Palette<GenericColors>;
   popper: Palette<IconColors>;
   spacing: (arg: AppSpacing) => string;
+  radi: (arg: AppSpacing) => string;
 };
 
 const paletteColors: Palette<GenericColors> = {
@@ -92,8 +93,26 @@ const application_spacing = (arg: AppSpacing): string => {
   }
 };
 
+const application_radius = (arg: AppSpacing): string => {
+  switch (arg) {
+    case 'xsmall':
+      return '5px';
+    case 'small':
+      return '10px';
+    case 'regular':
+      return '15px';
+    case 'large':
+      return '25px';
+    case 'xlarge':
+      return '30px';
+    case 'massive':
+      return '50px';
+  }
+};
+
 export const ApplicationTheme: AppTheme = {
   palette: paletteColors,
   popper: iconColors,
   spacing: application_spacing,
+  radi: application_radius,
 };

@@ -18,10 +18,8 @@ export const TimeLineSelector = ({
   console.log(selectedDate);
   const handleNewSelection = (direction: 'prev' | 'next') => {
     if (direction === 'prev') {
-      console.log(new Date(selectedDate.setDate(selectedDate.getDate() - 7)));
       onDateChange(new Date(selectedDate.setDate(selectedDate.getDate() - 7)));
     } else {
-      console.log(new Date(selectedDate.setDate(selectedDate.getDate() + 7)));
       onDateChange(new Date(selectedDate.setDate(selectedDate.getDate() + 7)));
     }
   };
@@ -66,4 +64,11 @@ const BasicBox = styled('div')((props) => ({
   width: 'min-content',
   justifyContent: 'center',
   alignItems: 'center',
+  '& p': {
+    fontWeight: 600,
+    fontSize: '14px',
+    '&:first-letter': {
+      textTransform: 'capitalize',
+    },
+  },
 }));
